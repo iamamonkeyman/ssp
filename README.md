@@ -1,2 +1,0 @@
-# ssp
-python_askryabin
