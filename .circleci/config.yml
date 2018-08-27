@@ -51,7 +51,8 @@ jobs:
            pwd
            ls -l
            . venv/bin/activate
-           cd ./venus2 && ls -al && python3 -m pytest ./test_it_all/Test_fibonacci1.py -v
+           cd ./fibo 
+           python3 -m pytest ./test_it_all/Test_fibonacci1.py -v
 
       - store_artifacts:
           path: test-reports
