@@ -1,0 +1,5 @@
+base_URL="http://jira.hillel.it:8080/"
+create_URL="rest/api/2/issue/"
+search_URL="rest/api/2/search?jql="
+user_name="Alex_Skryabin"
+user_pass="esi3lid9"
