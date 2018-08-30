@@ -1,9 +1,11 @@
 .idea
 venv_venus/
+Scripts/
 target/
 test-output/
 *.iml
 *.exe
+*.dll
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
