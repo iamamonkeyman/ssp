@@ -13,16 +13,16 @@ def s():
 
 def test_find_one_issue(s):
     actual_summ = "JustCreateNewIssue "+generate_summary()
-    s.post(base_URL+create_URL,  headers=h,  data=newIssue("AQAPYTHON", actual_summ, "Bug"))
+    s.post(base_URL+create_URL,  headers=h,  data=newIssue(project_name, actual_summ, "Bug"))
     r = s.get(base_URL+search_URL+"summary~'"+actual_summ+"'",  headers=h)
     assert json.loads(r.text)['total']== 1
     assert json.loads(r.text)['issues'][0]['fields']['summary']==actual_summ
 
 
 def test_find_five_issues(s):
-    for i in range(1):
+    for i in range(5):
         actual_summ = "JustCreateNewIssue "+generate_summary()
-        s.post(base_URL+create_URL,  headers=h,  data=newIssue("AQAPYTHON", actual_summ, "Bug"))
+        s.post(base_URL+create_URL,  headers=h,  data=newIssue(project_name, actual_summ, "Bug"))
     r = s.get(base_URL+search_URL+"summary~JustCreateNewIssue&maxResults=5",  headers=h)
     assert json.loads(r.text)['total'] > 5
     assert json.loads(r.text)['maxResults'] == 5

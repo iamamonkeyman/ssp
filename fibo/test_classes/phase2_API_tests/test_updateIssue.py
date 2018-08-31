@@ -11,14 +11,16 @@ def s():
     return sess
 
 
-def test_update_issue_summary(s):
+def test_update_issue(s):
     actual_summ = "JustCreateNewIssue "+generate_summary()
-    r = s.post(base_URL+create_URL,  headers=h,  data=newIssue("AQAPYTHON", actual_summ, "Bug"))
+    r = s.post(base_URL+create_URL,  headers=h,  data=newIssue(project_name, actual_summ, "Bug"))
     issueId = json.loads(r.text)['id']
+    # update summary
     r = s.put(base_URL+create_URL + issueId, headers=h, data=updateSumm("Ughhh "+actual_summ))
     assert r.status_code == requests.codes.no_content
     r = s.get(base_URL + create_URL + issueId, headers=h)
     assert json.loads(r.text)['fields']['summary'] == "Ughhh "+actual_summ
+    # update priority
     r = s.put(base_URL+create_URL + issueId, headers=h, data=updatePriority("High"))
     assert r.status_code == requests.codes.no_content
     r = s.get(base_URL + create_URL + issueId, headers=h)
