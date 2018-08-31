@@ -25,6 +25,9 @@ def test_update_issue(s):
     assert r.status_code == requests.codes.no_content
     r = s.get(base_URL + create_URL + issueId, headers=h)
     assert json.loads(r.text)['fields']['priority']['name'] == "High"
+    # cleanup
+    r = s.delete(base_URL + create_URL + issueId)
+    assert r.status_code == requests.codes.no_content
 
 
 if __name__ == '__main__':

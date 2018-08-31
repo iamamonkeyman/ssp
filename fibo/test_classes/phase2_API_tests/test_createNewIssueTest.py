@@ -12,11 +12,14 @@ def s():
     return sess
 
 
+
 def test_request_with_all_required_fields(s):
     actual_summ = "JustCreateNewIssue "+generate_summary()
     r = s.post(base_URL+create_URL,  headers=h,  data=newIssue(project_name, actual_summ, "Bug"))
     r = s.get(base_URL+create_URL + json.loads(r.text)['id'], headers=h)
     assert json.loads(r.text)['fields']['summary'] == actual_summ
+    r = s.delete(base_URL + create_URL + json.loads(r.text)['id'])
+    assert r.status_code == requests.codes.no_content
 
 
 def test_create_with_absent_required_field(s):
