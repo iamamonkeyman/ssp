@@ -44,13 +44,13 @@ jobs:
       # this example uses Django's built-in test-runner
       # other common Python testing frameworks include pytest and nose
       # https://pytest.org
-      # https://nose.readthedocs.io
+      # https://nose.readthedocs.io cd ./venus2 && ls -al && python3 -m pytest ./test_it_all/Test_fibonacci1.py -v
       - run:
           name: run tests
           command: |
            . venv/bin/activate
-           cd ./fibo 
-           python3 -m pytest ./test_it_all/Test_fibonacci.py -v
+           pytest
+
 
       - store_artifacts:
           path: test-reports
