@@ -7,25 +7,9 @@ from dev_classes.phase2_API.json_fixtures import *
 from dev_classes.phase2_API.properties_for_phase2 import *
 
 
-def pytest_addoption(parser):
-    parser.addoption("--bro", action="store",  help="chrome, firefox")
-    parser.addoption("--sco", action="store", default="class", help="class, function")
-
-
 @pytest.fixture(scope=pytestScope)
-def bro(request):
-    return request.config.getoption("--bro")
-
-
-# @pytest.fixture
-# def sco(request):
-#     return request.config.getoption("--sco")
-
-
-
-@pytest.fixture(scope=pytestScope)
-def wd(bro):
-    dr = ProjectWD(bro)
+def wd():
+    dr = ProjectWD()
     yield dr
     dr.closeWD()
 
