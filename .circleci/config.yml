@@ -49,7 +49,7 @@ jobs:
           name: run tests
           command: |
            . venv/bin/activate
-           pwd && ls -al && chmod 755 ./fibo/l_geckodriver  && chmod 755 ./fibo/l_chromedriver && pytest 
+           pwd && ls -al && chmod 755 ./l_geckodriver  && chmod 755 ./l_chromedriver && pytest 
 
 
       - store_artifacts:
