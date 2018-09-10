@@ -5,4 +5,3 @@ user_pass = "esi3lid9"
 project_name = "AQAPYTHON"
 browser = "chrome"
 project = "AQAPython (AQAPYTHON)"
-
