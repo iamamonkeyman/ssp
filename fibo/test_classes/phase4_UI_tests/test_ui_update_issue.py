@@ -24,7 +24,7 @@ class TestUpdateIssue:
         main_jira_page.confirm_update()
         assert main_jira_page.countelem(main_jira_page._CHECK_ASSIGNMENT_SPAN) == 2
         main_jira_page.delete_issue()
-        assert True
+        assert main_jira_page.ispresent(MainPO._DELETE_MESSAGE)
 
 
 if __name__ == '__main__':
