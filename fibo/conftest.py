@@ -24,7 +24,7 @@ def loginToJira(wd):
 
 
 @pytest.fixture(scope=pytestScope)
-def prepareOneIssue(wd):
+def prepareOneIssue():
     s = requests.Session()
     s.auth = (user_name, user_pass)
     actual_summ = "JustCreateNewIssue " + generate_summary()
@@ -35,7 +35,7 @@ def prepareOneIssue(wd):
 
 
 @pytest.fixture(scope=pytestScope)
-def prepareFiveIssues(wd):
+def prepareFiveIssues():
     s = requests.Session()
     s.auth = (user_name, user_pass)
     ids = []
