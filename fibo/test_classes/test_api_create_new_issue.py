@@ -1,3 +1,5 @@
+import allure
+
 from support_classes.json_fixtures import *
 from support_classes.jira_project_properties import *
 import requests
@@ -12,6 +14,8 @@ def s():
     return sess
 
 
+@pytest.mark.jiraapi
+@allure.step
 def test_request_with_all_required_fields(s):
     actual_summ = "JustCreateNewIssue " + generate_summary()
     r = s.post(base_URL + create_URL, headers=h, data=newIssue(project_name, actual_summ, "Bug"))
@@ -21,6 +25,8 @@ def test_request_with_all_required_fields(s):
     assert r.status_code == requests.codes.no_content
 
 
+@pytest.mark.jiraapi
+@allure.step
 def test_create_with_absent_required_field(s):
     actual_summ = "create_new_issue" + generate_summary()
     r = s.post(base_URL + create_URL, headers=h, data=newIssue(project_name, actual_summ, ""))
@@ -28,6 +34,8 @@ def test_create_with_absent_required_field(s):
     assert r.text.find("issue type is required") != -1
 
 
+@pytest.mark.jiraapi
+@allure.step
 def test_create_with_text_longer_then_supported(s):
     actual_summ = "long_nam".ljust(250, "e") + generate_summary()
     r = s.post(base_URL + create_URL, headers=h, data=newIssue(project_name, actual_summ, "Bug"))
