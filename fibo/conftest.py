@@ -53,3 +53,7 @@ def pytest_exception_interact(node, call):
                   name=node.nodeid.rsplit("::", 1)[1],
                   attachment_type=allure.attachment_type.PNG, )
     allure.attach(body=str(call.excinfo.traceback).replace(",", ",\n"))
+
+def pytest_namespace():
+    return {'global_wd': 0}
+
