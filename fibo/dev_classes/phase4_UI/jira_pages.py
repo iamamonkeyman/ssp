@@ -119,7 +119,7 @@ class MainPO(RootPO):
     def create_issue(s, proj, type, sum):
         s.elem(s._CREATE_LINK).click()
         s.elem(s._PROJECT_INPUT).click()
-        s.elem(s._PROJECT_INPUT).send_keys(proj)
+        s.elem(s._PROJECT_INPUT).send_keys(proj + "\n")
         #
         s.tillInvisible(s._EXPANDED_HEADER)
         s.elem(s._ISSUE_TYPE_INPUT).click()

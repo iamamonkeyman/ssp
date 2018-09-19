@@ -18,7 +18,7 @@ class TestCreateIssue:
     def test_missed_field(s, loginToJira):
         main_jira_page: MainPO = loginToJira
         main_jira_page.open_filter()
-        main_jira_page.create_issue(project + "\n", "Bug", "")
+        main_jira_page.create_issue(project, "Bug", "")
         isTrue = main_jira_page.ispresent(MainPO._EMPTY_MESSAGE)
         main_jira_page.cancel_creation()
         assert isTrue
@@ -26,7 +26,7 @@ class TestCreateIssue:
     def test_looong_summary(s, loginToJira):
         main_jira_page: MainPO = loginToJira
         main_jira_page.open_filter()
-        main_jira_page.create_issue(project + "\n", "Bug", "iam_lon".ljust(265, "g"))
+        main_jira_page.create_issue(project, "Bug", "iam_lon".ljust(265, "g"))
         isTrue = main_jira_page.ispresent(MainPO._LONG_MESSAGE)
         main_jira_page.cancel_creation()
         assert isTrue

@@ -9,7 +9,7 @@ class TestUpdateIssue:
         updated_summary = summary + "_fandango"
         main_jira_page: MainPO = loginToJira
         main_jira_page.open_filter()
-        main_jira_page.create_issue(project + "\n", "Bug", summary)
+        main_jira_page.create_issue(project, "Bug", summary)
         main_jira_page.open_reported_by_me()
         main_jira_page.select_issue(summary)
         main_jira_page.trigger_update()
