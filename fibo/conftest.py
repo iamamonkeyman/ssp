@@ -10,15 +10,15 @@ from dev_classes.phase4_UI.properties4 import user_name, user_pass, pytestScope
 # if (pytestScope='function')  -> Webdriver will init/teardown per... suddenly function!
 # if (pytestScope='class')  -> Webdriver will init/teardown per class
 @pytest.fixture(scope=pytestScope)
-def wd():
+def wd_fixture():
     dr = ProjectWD()
     yield dr
     dr.closeWD()
 
 
 @pytest.fixture(scope=pytestScope)
-def loginToJira(wd):
-    loginP = LoginPO(wd.getWD())
+def loginToJira(wd_fixture):
+    loginP = LoginPO(wd_fixture.getWD())
     mainP = loginP.loginToJira(user_name, user_pass)
     yield mainP
 

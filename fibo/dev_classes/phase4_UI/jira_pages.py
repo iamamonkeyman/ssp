@@ -49,15 +49,15 @@ class LoginPO(RootPO):
         super().__init__(webdr)
         s.wd.get(base_URL)
 
-    def _loginaction(s, l, p):
+    def _loginaction(s, login, password):
         s.elem(s._LOGIN_INPUT).clear()
-        s.elem(s._LOGIN_INPUT).send_keys(l)
+        s.elem(s._LOGIN_INPUT).send_keys(login)
         s.elem(s._PASSW_INPUT).clear()
-        s.elem(s._PASSW_INPUT).send_keys(p)
+        s.elem(s._PASSW_INPUT).send_keys(password)
         s.elem(s._LOGIN_BUTTON).click()
 
-    def loginToJira(s, l, p):
-        s._loginaction(l, p)
+    def loginToJira(s, login, password):
+        s._loginaction(login, password)
         if s.ispresent(s._CREATE_BUTTON):
             return MainPO(s.wd)
         return s
@@ -181,7 +181,7 @@ class MainPO(RootPO):
         s.elem(s._PRIORITY_TYPE_INPUT).click()
         s.elem(s._PRIORITY_TYPE_INPUT).send_keys(new_priority + "\n")
 
-    def assign_to_me(s):
+    def click_on_assign_to_me_button(s):
         if not s.ispresent(s._SUMMARY_HEADER):
             s.trigger_update()
         s.scrollintoview(s._ASSIGNEE_INPUT)

@@ -20,7 +20,7 @@ class TestUpdateIssue:
         main_jira_page.confirm_update()
         assert main_jira_page.countelem(main_jira_page._CHECK_PRIORITY_IMG) == 1
         main_jira_page.trigger_update()
-        main_jira_page.assign_to_me()
+        main_jira_page.click_on_assign_to_me_button()
         main_jira_page.confirm_update()
         assert main_jira_page.countelem(main_jira_page._CHECK_ASSIGNMENT_SPAN) == 2
         main_jira_page.delete_issue()
