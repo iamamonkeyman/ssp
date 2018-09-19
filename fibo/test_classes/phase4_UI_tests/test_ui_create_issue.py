@@ -7,7 +7,7 @@ class TestCreateIssue:
         summary = "Scaramouche"
         main_jira_page: MainPO = loginToJira
         main_jira_page.open_filter()
-        main_jira_page.create_issue(project + "\n", "Bug", summary)
+        main_jira_page.create_issue(project, "Bug", summary)
         main_jira_page.tillInvisible(MainPO._CONFIRM_BUTTON)
         assert main_jira_page.ispresent(MainPO._CREATE_MESSAGE)
         main_jira_page.open_reported_by_me()
