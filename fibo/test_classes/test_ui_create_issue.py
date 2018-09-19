@@ -1,5 +1,5 @@
 import pytest
-from dev_classes.phase4_UI.jira_pages import *
+from support_classes.jira_pages import *
 
 
 class TestCreateIssue:

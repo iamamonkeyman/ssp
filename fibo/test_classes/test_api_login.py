@@ -1,4 +1,4 @@
-from dev_classes.phase2_API.properties_for_phase2 import *
+from support_classes.jira_project_properties import *
 from pyquery import PyQuery
 import pytest
 import requests

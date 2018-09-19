@@ -1,5 +1,5 @@
-from dev_classes.phase2_API.json_fixtures import *
-from dev_classes.phase2_API.properties_for_phase2 import *
+from support_classes.json_fixtures import *
+from support_classes.jira_project_properties import *
 import requests
 import pytest
 import json

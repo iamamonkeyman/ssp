@@ -1,4 +1,5 @@
-from dev_classes.phase1_fibo.Fibonacci import generateFibonacci_ForLoop
+from support_classes.Fibonacci import generateFibonacci_ForLoop
+
 
 def test_positive():
     expected = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]

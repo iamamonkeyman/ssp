@@ -5,3 +5,6 @@ user_pass = "esi3lid9"
 project_name = "AQAPYTHON"
 browser = "chrome"
 project = "AQAPython (AQAPYTHON)"
+create_URL="rest/api/2/issue/"
+search_URL="rest/api/2/search?jql="
+

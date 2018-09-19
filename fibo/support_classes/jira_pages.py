@@ -1,6 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.remote.webdriver import WebDriver as RWD
-from dev_classes.phase4_UI.properties4 import *
+from support_classes.jira_project_properties import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 

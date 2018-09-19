@@ -1,10 +1,9 @@
 import pytest
 import requests
-from dev_classes.phase4_UI.jira_pages import LoginPO
-from dev_classes.phase4_UI.projectWd import ProjectWD
-from dev_classes.phase2_API.json_fixtures import *
-from dev_classes.phase2_API.properties_for_phase2 import *
-from dev_classes.phase4_UI.properties4 import user_name, user_pass, pytestScope
+from support_classes.jira_pages import LoginPO
+from support_classes.projectWd import ProjectWD
+from support_classes.json_fixtures import *
+from support_classes.jira_project_properties import *
 
 
 # if (pytestScope='function')  -> Webdriver will init/teardown per... suddenly function!

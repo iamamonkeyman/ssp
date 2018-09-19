@@ -1,5 +1,5 @@
 from os import name
-from dev_classes.phase4_UI.properties4 import browser
+from support_classes.jira_project_properties import browser
 from selenium.webdriver import *
 
 
