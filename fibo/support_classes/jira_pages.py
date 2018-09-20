@@ -1,3 +1,4 @@
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.remote.webdriver import WebDriver as RWD
 from support_classes.jira_project_properties import *
@@ -8,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as ec
 class RootPO:
     def __init__(s, wd: RWD):
         s.wd = wd
-        s.wdw = WebDriverWait(wd, 10)
+        s.wdw = WebDriverWait(wd, 15)
 
     def elem(s, *loc):
         return s.wdw.until(ec.visibility_of_element_located(loc[0]))
@@ -119,13 +120,17 @@ class MainPO(RootPO):
     def create_issue(s, proj, type, sum):
         s.elem(s._CREATE_LINK).click()
         s.elem(s._PROJECT_INPUT).click()
-        s.elem(s._PROJECT_INPUT).send_keys(proj + "\n")
+        s.elem(s._PROJECT_INPUT).clear()
+        s.elem(s._PROJECT_INPUT).clear()
+        s.elem(s._PROJECT_INPUT).send_keys(proj + Keys.ENTER)
         #
         s.tillInvisible(s._EXPANDED_HEADER)
         s.elem(s._ISSUE_TYPE_INPUT).click()
-        s.elem(s._ISSUE_TYPE_INPUT).send_keys(type + "\n")
+        s.elem(s._ISSUE_TYPE_INPUT).clear()
+        s.elem(s._ISSUE_TYPE_INPUT).send_keys(type + Keys.ENTER)
         #
         s.tillInvisible(s._EXPANDED_HEADER)
+        s.isvisible(s._SUMMARY_HEADER)
         s.elem(s._SUMMARY_HEADER).clear()
         s.elem(s._SUMMARY_HEADER).send_keys(sum)
         s.elem(s._CREATE_ISSUE_BUTTON).click()
@@ -153,7 +158,7 @@ class MainPO(RootPO):
         if (s.isvisible(s._FILTER_BASIC_A)):
             s.elem(s._FILTER_BASIC_A).click()
         s.elem(s._SEARCHER_QUERY_INPUT).clear()
-        s.elem(s._SEARCHER_QUERY_INPUT).send_keys(sum + "\n")
+        s.elem(s._SEARCHER_QUERY_INPUT).send_keys(sum + Keys.ENTER)
         s.tillInvisible(s._LOADING)
 
     def count_filtered_issues(s):
@@ -172,14 +177,15 @@ class MainPO(RootPO):
         if not s.ispresent(s._SUMMARY_HEADER):
             s.trigger_update()
         s.elem(s._SUMMARY_HEADER).clear()
-        s.elem(s._SUMMARY_HEADER).send_keys(new_sum + "\n")
+        s.elem(s._SUMMARY_HEADER).send_keys(new_sum + Keys.ENTER)
         s.tillInvisible(s._UPDATE_MESSAGE)
 
     def update_priority(s, new_priority):
         if not s.ispresent(s._SUMMARY_HEADER):
             s.trigger_update()
         s.elem(s._PRIORITY_TYPE_INPUT).click()
-        s.elem(s._PRIORITY_TYPE_INPUT).send_keys(new_priority + "\n")
+        s.elem(s._PRIORITY_TYPE_INPUT).clear()
+        s.elem(s._PRIORITY_TYPE_INPUT).send_keys(new_priority + Keys.ENTER)
 
     def click_on_assign_to_me_button(s):
         if not s.ispresent(s._SUMMARY_HEADER):

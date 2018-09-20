@@ -49,11 +49,12 @@ def prepareFiveIssues():
 
 def pytest_exception_interact(node, call):
     dr = pytest.global_wd
-    allure.attach(dr.get_screenshot_as_png(),
-                  name=node.nodeid.rsplit("::", 1)[1],
-                  attachment_type=allure.attachment_type.PNG, )
+    if dr is not None:
+        allure.attach(dr.get_screenshot_as_png(),
+                      name=node.nodeid.rsplit("::", 1)[1],
+                      attachment_type=allure.attachment_type.PNG, )
     allure.attach(body=str(call.excinfo.traceback).replace(",", ",\n"))
 
 def pytest_namespace():
-    return {'global_wd': 0}
+    return {'global_wd': None}
 
