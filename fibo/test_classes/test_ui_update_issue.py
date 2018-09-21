@@ -6,7 +6,6 @@ from support_classes.jira_pages import *
 @pytest.mark.jiraui
 class TestUpdateIssue:
 
-    @allure.step
     def test_update_three_fields(s, loginToJira):
         summary = "Scaramouche"
         updated_summary = summary + "_fandango"
