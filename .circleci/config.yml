@@ -51,8 +51,8 @@ jobs:
           command: |
            . venv/bin/activate
            chmod 755 ./l_geckodriver  && chmod 755 ./l_chromedriver && PATH=$PATH:/home/circleci/repo && PATH=$PATH:/opt/allure-2.7.0/bin/ && allure --version
-           pytest -m jiraapi --alluredir ~/test_result_jsons
-           allure generate -c ~/test_result_jsons -o /home/circleci/test-reports
+           pytest -m jiraapi --alluredir ~/repo/raw_test_result_jsons
+           allure generate -c ~/repo/raw_test_result_jsons -o ~/repo/test-reports
            
 
       - store_artifacts:
