@@ -1,8 +1,11 @@
+import allure
 import pytest
 from support_classes.jira_pages import *
 
 
+@pytest.mark.jiraui
 class TestLogin:
+
     @pytest.mark.parametrize("creds, expected", [
         ((user_name, "no_valid_pass"), (LoginPO._LOGIN_ERROR,)),
         (("no_valid_login", user_pass), (LoginPO._LOGIN_ERROR,)),

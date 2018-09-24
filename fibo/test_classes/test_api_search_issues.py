@@ -1,3 +1,4 @@
+import allure
 import pytest
 import requests
 from support_classes.json_fixtures import *
@@ -11,6 +12,8 @@ def s():
     return sess
 
 
+@pytest.mark.jiraapi
+@allure.step
 def test_find_one_issue(s):
     actual_summ = "JustCreateNewIssue "+generate_summary()
     r=s.post(base_URL+create_URL,  headers=h,  data=newIssue(project_name, actual_summ, "Bug"))
@@ -22,6 +25,8 @@ def test_find_one_issue(s):
     assert r.status_code == requests.codes.no_content
 
 
+@pytest.mark.jiraapi
+@allure.step
 def test_find_five_issues(s):
     ids=[]
     for i in range(6):
@@ -37,6 +42,8 @@ def test_find_five_issues(s):
 
 
 
+@pytest.mark.jiraapi
+@allure.step
 def test_find_no_results(s):
     r = s.get(base_URL + search_URL + "summary~there_is_no_spoon", headers=h)
     assert json.loads(r.text)['total'] == 0

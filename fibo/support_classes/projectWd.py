@@ -1,3 +1,4 @@
+import pytest
 from os import name
 from support_classes.jira_project_properties import browser
 from selenium.webdriver import *
@@ -22,6 +23,7 @@ class ProjectWD:
     def __init__(self):
         self.wd = getattr(self, '_get_' + browser)()
         self.wd.implicitly_wait(5)
+        pytest.global_wd = self.wd
 
     def getWD(self):
         return self.wd

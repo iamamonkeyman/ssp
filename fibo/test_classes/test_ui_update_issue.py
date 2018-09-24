@@ -1,7 +1,9 @@
+import allure
 import pytest
 from support_classes.jira_pages import *
 
 
+@pytest.mark.jiraui
 class TestUpdateIssue:
 
     def test_update_three_fields(s, loginToJira):

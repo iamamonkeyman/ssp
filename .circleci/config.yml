@@ -34,6 +34,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
+            sudo wget https://bintray.com/qameta/generic/download_file?file_path=io%2Fqameta%2Fallure%2Fallure%2F2.7.0%2Fallure-2.7.0.zip -O /tmp/al.zip && sudo unzip /tmp/al.zip -d /opt/ 
 
       - save_cache:
           paths:
@@ -49,9 +50,12 @@ jobs:
           name: run tests
           command: |
            . venv/bin/activate
-           chmod 755 ./l_geckodriver  && chmod 755 ./l_chromedriver && PATH=$PATH:/home/circleci/repo && pytest 
-
+           chmod 755 ./l_geckodriver  && chmod 755 ./l_chromedriver && PATH=$PATH:/home/circleci/repo && PATH=$PATH:/opt/allure-2.7.0/bin/ && allure --version
+           pytest --alluredir ~/repo/raw_test_result_jsons
+           allure generate -c ~/repo/raw_test_result_jsons -o ~/repo/test-reports
+           
 
       - store_artifacts:
           path: test-reports
           destination: test-reports
+          when: always

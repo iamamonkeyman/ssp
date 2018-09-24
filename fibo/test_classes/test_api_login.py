@@ -1,3 +1,5 @@
+import allure
+
 from support_classes.jira_project_properties import *
 from pyquery import PyQuery
 import pytest
@@ -11,6 +13,8 @@ import requests
 ])
 
 
+@pytest.mark.jiraapi
+@allure.step
 def test_try_to_login(actual, expected):
     r = requests.get(base_URL, auth=(actual[0], actual[1]));
     pq = PyQuery(r.text)

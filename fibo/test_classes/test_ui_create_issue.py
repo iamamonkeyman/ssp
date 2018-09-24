@@ -1,8 +1,10 @@
+import allure
 import pytest
 from support_classes.jira_pages import *
 
-
+@pytest.mark.jiraui
 class TestCreateIssue:
+
     def test_all_required_fields(s, loginToJira):
         summary = "Scaramouche"
         main_jira_page: MainPO = loginToJira
@@ -15,6 +17,7 @@ class TestCreateIssue:
         main_jira_page.delete_issue()
         assert main_jira_page.ispresent(MainPO._DELETE_MESSAGE)
 
+
     def test_missed_field(s, loginToJira):
         main_jira_page: MainPO = loginToJira
         main_jira_page.open_filter()
@@ -22,6 +25,7 @@ class TestCreateIssue:
         isTrue = main_jira_page.ispresent(MainPO._EMPTY_MESSAGE)
         main_jira_page.cancel_creation()
         assert isTrue
+
 
     def test_looong_summary(s, loginToJira):
         main_jira_page: MainPO = loginToJira

@@ -1,3 +1,4 @@
+import allure
 import pytest
 import requests
 from support_classes.json_fixtures import *
@@ -11,6 +12,8 @@ def s():
     return sess
 
 
+@pytest.mark.jiraapi
+@allure.step
 def test_update_issue(s):
     actual_summ = "JustCreateNewIssue "+generate_summary()
     r = s.post(base_URL+create_URL,  headers=h,  data=newIssue(project_name, actual_summ, "Bug"))

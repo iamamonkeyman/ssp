@@ -1,5 +1,9 @@
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.remote.webdriver import WebDriver as RWD
+
+import allure
+
 from support_classes.jira_project_properties import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
@@ -8,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as ec
 class RootPO:
     def __init__(s, wd: RWD):
         s.wd = wd
-        s.wdw = WebDriverWait(wd, 10)
+        s.wdw = WebDriverWait(wd, 15)
 
     def elem(s, *loc):
         return s.wdw.until(ec.visibility_of_element_located(loc[0]))
@@ -49,6 +53,7 @@ class LoginPO(RootPO):
         super().__init__(webdr)
         s.wd.get(base_URL)
 
+    @allure.step
     def _loginaction(s, login, password):
         s.elem(s._LOGIN_INPUT).clear()
         s.elem(s._LOGIN_INPUT).send_keys(login)
@@ -56,6 +61,7 @@ class LoginPO(RootPO):
         s.elem(s._PASSW_INPUT).send_keys(password)
         s.elem(s._LOGIN_BUTTON).click()
 
+    @allure.step
     def loginToJira(s, login, password):
         s._loginaction(login, password)
         if s.ispresent(s._CREATE_BUTTON):
@@ -102,6 +108,7 @@ class MainPO(RootPO):
     def __init__(s, webdr):
         super().__init__(webdr)
 
+    @allure.step
     def open_filter(s):
         s.tillInvisible(s._LOADING)
         s.elem(s._ISSUES_MENU_LINK).click()
@@ -109,6 +116,7 @@ class MainPO(RootPO):
         s.elem(s._ISSUE_HEADER)
         s.tillInvisible(s._LOADING)
 
+    @allure.step
     def open_reported_by_me(s):
         if not s.ispresent(s._ISSUE_HEADER):
             s.open_filter()
@@ -116,32 +124,40 @@ class MainPO(RootPO):
         s.elem(s._REPORTED_HEADER)
         s.tillInvisible(s._LOADING)
 
+    @allure.step
     def create_issue(s, proj, type, sum):
         s.elem(s._CREATE_LINK).click()
         s.elem(s._PROJECT_INPUT).click()
-        s.elem(s._PROJECT_INPUT).send_keys(proj + "\n")
+        s.elem(s._PROJECT_INPUT).clear()
+        s.elem(s._PROJECT_INPUT).clear()
+        s.elem(s._PROJECT_INPUT).send_keys(proj + Keys.ENTER)
         #
         s.tillInvisible(s._EXPANDED_HEADER)
         s.elem(s._ISSUE_TYPE_INPUT).click()
-        s.elem(s._ISSUE_TYPE_INPUT).send_keys(type + "\n")
+        s.elem(s._ISSUE_TYPE_INPUT).clear()
+        s.elem(s._ISSUE_TYPE_INPUT).send_keys(type + Keys.ENTER)
         #
         s.tillInvisible(s._EXPANDED_HEADER)
+        s.isvisible(s._SUMMARY_HEADER)
         s.elem(s._SUMMARY_HEADER).clear()
         s.elem(s._SUMMARY_HEADER).send_keys(sum)
         s.elem(s._CREATE_ISSUE_BUTTON).click()
         if 0 < len(sum) < 255:
             s.tillInvisible(s._CONFIRM_BUTTON)
 
+    @allure.step
     def cancel_creation(s):
         s.elem(s._CANCEL_BUTTON).click()
         s.wd.switch_to.alert.accept()
         s.tillInvisible(s._CONFIRM_BUTTON)
 
+    @allure.step
     def select_issue(s, sum):
         s.tillInvisible(s._LOADING)
         s.elem((By.XPATH, f"//span[.='{sum}']")).click()
         s.tillInvisible(s._LOADING)
 
+    @allure.step
     def delete_issue(s):
         s.elem(s._MORE_BUTTON).click()
         s.elem(s._DEL_BUTTON).click()
@@ -149,44 +165,53 @@ class MainPO(RootPO):
         s.tillInvisible(s._LOADING)
         s.tillInvisible(s._DELETE_MESSAGE)
 
+    @allure.step
     def search_issue(s, sum):
         if (s.isvisible(s._FILTER_BASIC_A)):
             s.elem(s._FILTER_BASIC_A).click()
         s.elem(s._SEARCHER_QUERY_INPUT).clear()
-        s.elem(s._SEARCHER_QUERY_INPUT).send_keys(sum + "\n")
+        s.elem(s._SEARCHER_QUERY_INPUT).send_keys(sum + Keys.ENTER)
         s.tillInvisible(s._LOADING)
 
+    @allure.step
     def count_filtered_issues(s):
         return s.countelem(s._FILTERED_LI)
 
+    @allure.step
     def trigger_update(s):
         s.elem(s._UPDATE_BUTTON).click()
         s.elem(s._SUMMARY_HEADER)
 
+    @allure.step
     def confirm_update(s):
         s.elem(s._UPDATE_CONFIRM_BUTTON).click()
         s.tillInvisible(s._LOADING)
         s.tillInvisible(s._UPDATE_MESSAGE)
 
+    @allure.step
     def update_summary(s, new_sum):
         if not s.ispresent(s._SUMMARY_HEADER):
             s.trigger_update()
         s.elem(s._SUMMARY_HEADER).clear()
-        s.elem(s._SUMMARY_HEADER).send_keys(new_sum + "\n")
+        s.elem(s._SUMMARY_HEADER).send_keys(new_sum + Keys.ENTER)
         s.tillInvisible(s._UPDATE_MESSAGE)
 
+    @allure.step
     def update_priority(s, new_priority):
         if not s.ispresent(s._SUMMARY_HEADER):
             s.trigger_update()
         s.elem(s._PRIORITY_TYPE_INPUT).click()
-        s.elem(s._PRIORITY_TYPE_INPUT).send_keys(new_priority + "\n")
+        s.elem(s._PRIORITY_TYPE_INPUT).clear()
+        s.elem(s._PRIORITY_TYPE_INPUT).send_keys(new_priority + Keys.ENTER)
 
+    @allure.step
     def click_on_assign_to_me_button(s):
         if not s.ispresent(s._SUMMARY_HEADER):
             s.trigger_update()
         s.scrollintoview(s._ASSIGNEE_INPUT)
         s.elem(s._ASSIGNE_TO_ME_LINK).click()
 
+    @allure.step
     def log_out(s):
         s.elem(s._USER_MENU_BUTTON).click()
         s.elem(s._LOGOUT_BUTTON).click()

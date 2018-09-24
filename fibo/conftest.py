@@ -1,3 +1,4 @@
+import allure
 import pytest
 import requests
 from support_classes.jira_pages import LoginPO
@@ -6,8 +7,6 @@ from support_classes.json_fixtures import *
 from support_classes.jira_project_properties import *
 
 
-# if (pytestScope='function')  -> Webdriver will init/teardown per... suddenly function!
-# if (pytestScope='class')  -> Webdriver will init/teardown per class
 @pytest.fixture(scope=pytestScope)
 def wd_fixture():
     dr = ProjectWD()
@@ -46,3 +45,16 @@ def prepareFiveIssues():
     for j in ids:
         r = s.delete(base_URL + create_URL + j)
         assert r.status_code == requests.codes.no_content
+
+
+def pytest_exception_interact(node, call):
+    dr = pytest.global_wd
+    if dr is not None:
+        allure.attach(dr.get_screenshot_as_png(),
+                      name=node.nodeid.rsplit("::", 1)[1],
+                      attachment_type=allure.attachment_type.PNG, )
+    allure.attach(body=str(call.excinfo.traceback).replace(",", ",\n"))
+
+def pytest_namespace():
+    return {'global_wd': None}
+

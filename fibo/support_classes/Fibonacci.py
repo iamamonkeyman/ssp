@@ -1,3 +1,7 @@
+import allure
+
+
+@allure.step
 def generateFibonacci_ForLoop(num):
 
     if not isinstance(num, int):
